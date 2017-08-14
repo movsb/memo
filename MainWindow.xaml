@@ -18,9 +18,22 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
             <ListBox Name="lstMemos" SelectionChanged="lstMemos_SelectionChanged">
+                <ListBox.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#E0E0E0" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#E0E0E0" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrush}" Color="Red" />
+                    <Style TargetType="ListBoxItem">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E0E0E0" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.Resources>
                 <ListBox.ContextMenu>
                     <ContextMenu ContextMenuOpening="ContextMenu_ContextMenuOpening">
                         <MenuItem Header="新建" Click="MenuItem_Click" Tag="new"/>
+                        <MenuItem Header="修改" Click="MenuItem_Click" Tag="modify"/>
                         <MenuItem Header="删除" Click="MenuItem_Click" Tag="delete"/>
                     </ContextMenu>
                 </ListBox.ContextMenu>
@@ -42,7 +55,7 @@
             <Grid Name="grdContentWrapper">
                 <Label Content="没有选择备忘" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Gray"/>
                 <Grid Visibility="{Binding ElementName=grdContentWrapper,Path=DataContext,Converter={StaticResource Null2VisibilityConverter}}">
-                    <TextBox Name="txtContent" Text="{Binding Path=Content, Mode=TwoWay}"/>
+                    <TextBox Name="txtContent" Text="{Binding Path=Content, Mode=TwoWay}" AcceptsReturn="True" AcceptsTab="True"/>
                 </Grid>
             </Grid>
         </Grid>

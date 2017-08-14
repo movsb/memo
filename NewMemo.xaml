@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:memo"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
+        PreviewKeyDown="Window_PreviewKeyDown"
         Title="New memo" Width="249" SizeToContent="Height">
     <Grid>
         <StackPanel Margin="10">

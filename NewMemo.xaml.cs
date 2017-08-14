@@ -19,10 +19,14 @@ namespace memo
     /// </summary>
     public partial class NewMemo : Window
     {
-        public NewMemo()
+        public NewMemo(string prompt = null)
         {
             InitializeComponent();
 
+            Title = prompt == null ? "New memo" : "Modify memo";
+            txtName.Text = prompt != null ? prompt : "";
+
+            txtName.SelectAll();
             txtName.Focus();
         }
 
@@ -43,6 +47,13 @@ namespace memo
         {
             DialogResult = false;
             Close();
+        }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) {
+                Close();
+            }
         }
     }
 }

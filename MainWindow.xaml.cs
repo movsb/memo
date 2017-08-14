@@ -51,18 +51,35 @@ namespace memo
 
                     _memo_objects.Insert(0, m);
                     m.Id = _memo_manager.Add(m);
+
+                    lstMemos.SelectedItem = m;
+                }
+                break;
+            }
+            case "modify": {
+                var m = lstMemos.SelectedItem as MemoObject;
+                if (m == null) {
+                    return;
+                }
+                var wnd = new NewMemo(m.Title)
+                {
+                    Owner = this
+                };
+                var ret = wnd.ShowDialog();
+                if (ret.HasValue && ret.Value) {
+                    m.Title = wnd.MemoTitle;
                 }
                 break;
             }
             case "delete": {
-                if (lstMemos.SelectedItem == null) {
+                var m = lstMemos.SelectedItem as MemoObject;
+                if (m == null) {
                     return;
                 }
 
                 if (MessageBox.Show(this, "确定要删除此条备忘？", "Memo",
-                    MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                    MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) == MessageBoxResult.OK)
                 {
-                    var m = (MemoObject)lstMemos.SelectedItem;
                     _memo_objects.Remove(m);
                     _memo_manager.Delete(m.Id);
                     if (grdContentWrapper.DataContext == m) {
