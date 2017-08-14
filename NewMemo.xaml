@@ -1,0 +1,20 @@
+﻿<Window x:Class="memo.NewMemo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:memo"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        Title="New memo" Width="249" SizeToContent="Height">
+    <Grid>
+        <StackPanel Margin="10">
+            <Label Content="名字：" Padding="0,6,0,6"/>
+            <TextBox Name="txtName" Padding="6"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                <Button Name="btnOK" Padding="10,4,10,4" Click="btnOK_Click" IsDefault="True">确定</Button>
+                <Button Name="btnCancel" Margin="10,0,0,0" Padding="10,4,10,4" Click="btnCancel_Click">取消</Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,50 @@
+﻿<Window x:Class="memo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:memo"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Memo" Height="408" Width="621" Deactivated="Window_Deactivated">
+    <Window.Resources>
+        <local:Null2VisibilityConverter x:Key="Null2VisibilityConverter" />
+        <local:Bool2VisibilityConverter x:Key="Bool2VisibilityConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <ListBox Name="lstMemos" SelectionChanged="lstMemos_SelectionChanged">
+                <ListBox.ContextMenu>
+                    <ContextMenu ContextMenuOpening="ContextMenu_ContextMenuOpening">
+                        <MenuItem Header="新建" Click="MenuItem_Click" Tag="new"/>
+                        <MenuItem Header="删除" Click="MenuItem_Click" Tag="delete"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Fill="#FF608D" Width="8" Height="8" Grid.Column="0" Margin="8,0,0,0" Visibility="{Binding Path=Modified,Converter={StaticResource Bool2VisibilityConverter}}"/>
+                            <Label Content="{Binding Title}" Padding="8" Grid.Column="1"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid Name="grdContentWrapper">
+                <Label Content="没有选择备忘" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Gray"/>
+                <Grid Visibility="{Binding ElementName=grdContentWrapper,Path=DataContext,Converter={StaticResource Null2VisibilityConverter}}">
+                    <TextBox Name="txtContent" Text="{Binding Path=Content, Mode=TwoWay}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
